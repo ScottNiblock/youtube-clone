@@ -7,6 +7,14 @@ import {Search} from '@mui/icons-material'
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+  const resetZoom = () =>{
+    const viewport = document.querySelector("meta[name=viewport]");
+    if (viewport){
+      viewport.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no";
+      setTimeout(() => {
+        viewport.content = "width=device-width, initial-scale=1.0";
+      }, 500);
+  }
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -14,7 +22,8 @@ const SearchBar = () => {
     if(searchTerm){
       navigate(`/search/${searchTerm}`)
 
-      setSearchTerm('')
+      setSearchTerm('');
+      resetZoom();
     }
   }
   return (
@@ -40,6 +49,7 @@ onChange={(e) => setSearchTerm(e.target.value)}
 </IconButton>
    </Paper>
   )
+}
 }
 
 export default SearchBar
