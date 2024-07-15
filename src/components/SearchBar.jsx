@@ -7,16 +7,7 @@ import {Search} from '@mui/icons-material'
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
-  const resetZoom = () =>{
-    const viewport = document.querySelector("meta[name=viewport]");
-    if (viewport){
-      viewport.content = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no";
-      setTimeout(() => {
-        viewport.content = "width=device-width, initial-scale=1.0";
-      }, 500);
-  }
-}
-
+  const inputRef = React.useRef(null);
   const handleSubmit = (e) =>{
     e.preventDefault();
 
@@ -24,7 +15,10 @@ const SearchBar = () => {
       navigate(`/search/${searchTerm}`)
 
       setSearchTerm('');
-      resetZoom();
+      //blur input field to hide keyboard
+      if (inputRef.current) {
+        inputRef.current.blur();
+      }
     }
   }
   return (
@@ -39,11 +33,13 @@ const SearchBar = () => {
     mr: {sm: 5} //Only sets margin right of 5 on small devices
    }}
    >
-<input 
+<input
+ref={inputRef}
 className='search-bar'
 placeholder='Search...'
 value={searchTerm}
 onChange={(e) => setSearchTerm(e.target.value)}
+
 />
 <IconButton type='submit' sx={{p:'10px', color: 'red'}}>
     <Search/>
