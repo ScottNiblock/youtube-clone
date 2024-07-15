@@ -15,6 +15,7 @@ const SearchBar = () => {
         viewport.content = "width=device-width, initial-scale=1.0";
       }, 500);
   }
+}
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -50,6 +51,6 @@ onChange={(e) => setSearchTerm(e.target.value)}
    </Paper>
   )
 }
-}
+
 
 export default SearchBar
